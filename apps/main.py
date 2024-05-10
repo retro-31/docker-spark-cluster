@@ -1,6 +1,9 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col,date_format
 
+# download the data from https://s3.amazonaws.com/nycbuspositions/2017/07/2017-07-14-bus-positions.csv.xz
+# and unzip it to as ./data/2017-07-14-bus-positions.csv
+
 def init_spark():
   sql = SparkSession.builder\
     .appName("trip-app")\
@@ -16,20 +19,19 @@ def main():
     "password": "casa1234",
     "driver": "org.postgresql.Driver"
   }
-  file = "/opt/spark-data/MTA_2014_08_01.csv"
+  file = "/opt/spark-data/2017-07-14-bus-positions.csv"
   sql,sc = init_spark()
 
-  df = sql.read.load(file,format = "csv", inferSchema="true", sep="\t", header="true"
+  df = sql.read.load(file,format = "csv", inferSchema="true", sep=",", header="true"
       ) \
-      .withColumn("report_hour",date_format(col("time_received"),"yyyy-MM-dd HH:00:00")) \
-      .withColumn("report_date",date_format(col("time_received"),"yyyy-MM-dd"))
+      .withColumn("report_hour",date_format(col("timestamp"),"yyyy-MM-dd HH:00:00")) \
+      .withColumn("report_date",date_format(col("timestamp"),"yyyy-MM-dd"))
   
   # Filter invalid coordinates
   df.where("latitude <= 90 AND latitude >= -90 AND longitude <= 180 AND longitude >= -180") \
     .where("latitude != 0.000000 OR longitude !=  0.000000 ") \
     .write \
-    .jdbc(url=url, table="mta_reports", mode='append', properties=properties) \
-    .save()
-  
+    .jdbc(url=url, table="mta_reports", mode='append', properties=properties)
+      
 if __name__ == '__main__':
   main()
