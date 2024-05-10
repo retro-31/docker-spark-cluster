@@ -95,7 +95,7 @@ This programs just loads archived data from [MTA Bus Time](http://web.mta.info/d
 
 ### Download the dataset
 
-Download the required dataset [MTA Bus Time](https://s3.amazonaws.com/nycbuspositions/2017/07/2017-07-14-bus-positions.csv.xz) by unzipping the data into **2017-07-14-bus-positions.csv**.
+Download the required dataset [MTA Bus Time](https://s3.amazonaws.com/nycbuspositions/2017/07/2017-07-14-bus-positions.csv.xz) by unzipping the data into **2017-07-14-bus-positions.csv** and place under the **./data/** folder.
 
 The loaded table will contain the following structure:
 
