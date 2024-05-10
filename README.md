@@ -1,8 +1,8 @@
-# Spark Cluster with Docker & docker-compose(2021 ver.)
+# Spark Cluster with Docker & docker-compose(2024 ver.)
 
 # General
 
-A simple spark standalone cluster for your testing environment purposses. A *docker-compose up* away from you solution for your spark development environment.
+A simple spark standalone cluster for your testing environment purposes. A *docker-compose up* away from your solution for your spark development environment.
 
 The Docker compose will create the following containers:
 
@@ -17,11 +17,11 @@ demo-database|5432
 
 The following steps will make you run your spark cluster's containers.
 
-## Pre requisites
+## Prerequisites
 
 * Docker installed
 
-* Docker compose  installed
+* Docker Compose  installed
 
 ## Build the image
 
@@ -46,19 +46,19 @@ Just validate your cluster accesing the spark UI on each worker & master URL.
 
 http://localhost:9090/
 
-![alt text](docs/spark-master.png "Spark master UI")
+![alt text](articles/images/spark-master.png "Spark master UI")
 
 ### Spark Worker 1
 
 http://localhost:9091/
 
-![alt text](docs/spark-worker-1.png "Spark worker 1 UI")
+![alt text](articles/images/spark-worker-1.png "Spark worker 1 UI")
 
 ### Spark Worker 2
 
 http://localhost:9092/
 
-![alt text](docs/spark-worker-2.png "Spark worker 2 UI")
+![alt text](articles/images/spark-worker-2.png "Spark worker 2 UI")
 
 
 # Resource Allocation 
@@ -93,11 +93,15 @@ This is basically a dummy DFS created from docker Volumes...(maybe not...)
 
 This programs just loads archived data from [MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html) and apply basic filters using spark sql, the result are persisted into a postgresql table.
 
+# Download the dataset
+
+Download the required dataset [MTA Bus Time](https://s3.amazonaws.com/nycbuspositions/2017/07/2017-07-14-bus-positions.csv.xz) by unzipping the data into **2017-07-14-bus-positions.csv**.
+
 The loaded table will contain the following structure:
 
-latitude|longitude|time_received|vehicle_id|distance_along_trip|inferred_direction_id|inferred_phase|inferred_route_id|inferred_trip_id|next_scheduled_stop_distance|next_scheduled_stop_id|report_hour|report_date
----|---|---|---|---|---|---|---|---|---|---|---|---
-40.668602|-73.986697|2014-08-01 04:00:01|469|4135.34710710144|1|IN_PROGRESS|MTA NYCT_B63|MTA NYCT_JG_C4-Weekday-141500_B63_123|2.63183804205619|MTA_305423|2014-08-01 04:00:00|2014-08-01
+|trip_id|route_id|trip_start_time|trip_start_date|vehicle_id|vehicle_label|vehicle_license_plate|latitude|longitude|bearing|speed|stop_id|stop_status|occupancy_status|congestion_level|progress|block_assigned|dist_along_route|report_hour|report_date|
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|2017-07-14 00:15:24+00|CS_C7-Weekday-SDon-117400_MISC_825|Q28||13-07-2017|MTA|NYCT_7424|||40.765316|-73.816071|356.81|0|501000|IN_TRANSIT_TO|EMPTY|UNKNOWN_CONGESTION_LEVEL|||||2014-08-01 04:00:00|2014-08-01|
 
 To submit the app connect to one of the workers or the master and execute:
 
@@ -113,14 +117,14 @@ To submit the app connect to one of the workers or the master and execute:
 
 ## MTA Bus Analytics[Scala]
 
-This program takes the archived data from [MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html) and make some aggregations on it, the calculated results are persisted on postgresql tables.
+This program takes the archived data from [MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html) and makes some aggregations on it. The calculated results are persisted on Postgresql tables.
 
-Each persisted table correspond to a particullar aggregation:
+Each persisted table corresponds to a particular aggregation:
 
 Table|Aggregation
 ---|---
-day_summary|A summary of vehicles reporting, stops visited, average speed and distance traveled(all vehicles)
-speed_excesses|Speed excesses calculated in a 5 minute window
+day_summary|A summary of vehicles reporting, stops visited, average speed, and distance traveled(all vehicles)
+speed_excesses|Speed excesses calculated in a 5-minute window
 average_speed|Average speed by vehicle
 distance_traveled|Total Distance traveled by vehicle
 
