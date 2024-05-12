@@ -1,5 +1,5 @@
-CREATE DATABASE if not exists mta_data;
-CREATE TABLE if not exists mta_data.public.mta_reports(
+CREATE SCHEMA if not exists mta_data;
+CREATE TABLE if not exists mta_data.mta_reports(
 timestamp varchar NULL,
 trip_id varchar NULL,
 route_id varchar NULL,
