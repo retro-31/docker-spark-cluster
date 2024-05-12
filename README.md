@@ -104,6 +104,9 @@ The loaded table will contain the following structure:
 |2017-07-14 00:15:24+00|CS_C7-Weekday-SDon-117400_MISC_825|Q28||13-07-2017|MTA|NYCT_7424|||40.765316|-73.816071|356.81|0|501000|IN_TRANSIT_TO|EMPTY|UNKNOWN_CONGESTION_LEVEL|||||2014-08-01 04:00:00|2014-08-01|
 
 To submit the app connect to one of the workers or the master and execute:
+```sh
+docker exec -it docker-spark-cluster-spark-master-1 bash
+```
 
 ```sh
 /opt/spark/bin/spark-submit --master spark://spark-master:7077 \
