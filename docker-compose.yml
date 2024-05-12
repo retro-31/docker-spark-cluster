@@ -52,9 +52,7 @@ services:
     ports: 
       - "5432:5432"
     volumes:
-      - ./dataset:/docker-entrypoint-initdb.d
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment: 
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=casa1234
-    command: /bin/bash -c "until pg_isready -U ${POSTGRES_USER} -p 5432; do sleep 1; done; psql -U ${POSTGRES_USER} -c 'CREATE DATABASE mta_data;'"
-
