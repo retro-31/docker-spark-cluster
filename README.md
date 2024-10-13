@@ -1,4 +1,4 @@
-# Spark Cluster with Docker & docker-compose(2024 ver.)
+# Spark Cluster with docker & docker-compose (2024 ver.)
 
 # General
 
