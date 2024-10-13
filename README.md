@@ -40,7 +40,7 @@ docker-compose up -d
 
 ## Validate your cluster
 
-Just validate your cluster accesing the spark UI on each worker & master URL.
+Just validate your cluster by accessing the spark UI on each worker & master URL.
 
 ### Spark Master
 
@@ -63,39 +63,39 @@ http://localhost:9092/
 
 # Resource Allocation 
 
-This cluster is shipped with three workers and one spark master, each of these has a particular set of resource allocation(basically RAM & cpu cores allocation).
+This cluster is shipped with three workers and one spark master. Each of these has a particular resource allocation(basically, RAM and CPU core allocation).
 
-* The default CPU cores allocation for each spark worker is 1 core.
+* The default CPU core allocation for each spark worker is one core.
 
 * The default RAM for each spark-worker is 1024 MB.
 
-* The default RAM allocation for spark executors is 256mb.
+* The default RAM allocation for spark executors is 256 MB.
 
-* The default RAM allocation for spark driver is 128mb
+* The default RAM allocation for the spark driver is 128MB
 
-* If you wish to modify this allocations just edit the env/spark-worker.sh file.
+* If you wish to modify this allocation, edit the env/spark-worker.sh file.
 
 # Binded Volumes
 
-To make app running easier I've shipped two volume mounts described in the following chart:
+To make the app running easier, I've shipped two volume mounts described in the following chart:
 
 Host Mount|Container Mount|Purposse
 ---|---|---
 apps|/opt/spark-apps|Used to make available your app's jars on all workers & master
 data|/opt/spark-data| Used to make available your app's data on all workers & master
 
-This is basically a dummy DFS created from docker Volumes...(maybe not...)
+This is a dummy DFS created from docker Volumes...(maybe not...)
 
 # Run Sample applications
 
 
 ## NY Bus Stops Data [Pyspark]
 
-This programs just loads archived data from [MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html) and apply basic filters using spark sql, the result are persisted into a postgresql table.
+This program just loads archived data from [MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html) and applies basic filters using Spark SQL. The results are persisted into a PostgreSQL table.
 
 ### Download the dataset
 
-Download the required dataset [MTA Bus Time](https://s3.amazonaws.com/nycbuspositions/2017/07/2017-07-14-bus-positions.csv.xz) by unzipping the data into **2017-07-14-bus-positions.csv** and place under the **./data/** folder.
+Download the required dataset [MTA Bus Time](https://s3.amazonaws.com/nycbuspositions/2017/07/2017-07-14-bus-positions.csv.xz) by unzipping the data to **2017-07-14-bus-positions.csv** and place it under the **./data/** folder.
 
 The loaded table will contain the following structure:
 
@@ -103,9 +103,9 @@ The loaded table will contain the following structure:
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 |2017-07-14 00:15:24+00|CS_C7-Weekday-SDon-117400_MISC_825|Q28||13-07-2017|MTA|NYCT_7424|||40.765316|-73.816071|356.81|0|501000|IN_TRANSIT_TO|EMPTY|UNKNOWN_CONGESTION_LEVEL|||||2014-08-01 04:00:00|2014-08-01|
 
-To submit the app connect to one of the workers or the master and execute:
+To submit the app, connect to one of the workers or the master and execute the following:
 ```sh
-docker exec -it docker-spark-cluster-spark-master-1 bash
+docker exec -it docker-spark-cluster_spark-master_1 bash
 ```
 
 ```sh
@@ -120,7 +120,7 @@ docker exec -it docker-spark-cluster-spark-master-1 bash
 
 ## MTA Bus Analytics[Scala]
 
-This program takes the archived data from [MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html) and makes some aggregations on it. The calculated results are persisted on Postgresql tables.
+This program takes the archived data from [MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html) and makes some aggregations on it. The calculated results persist in Postgresql tables.
 
 Each persisted table corresponds to a particular aggregation:
 
@@ -156,21 +156,21 @@ You will notice on the spark-ui a driver program and executor program running(In
 
 * We compiled the necessary docker image to run spark master and worker containers.
 
-* We created a spark standalone cluster using 2 worker nodes and 1 master node using docker && docker-compose.
+* We created a Spark standalone cluster using 2 worker nodes and 1 master node, using docker and docker-compose.
 
 * Copied the resources necessary to run demo applications.
 
-* We ran a distributed application at home(just need enough cpu cores and RAM to do so).
+* We ran a distributed application at home(we just need enough CPU cores and RAM to do so).
 
 # Why a standalone cluster?
 
-* This is intended to be used for test purposes, basically a way of running distributed spark apps on your laptop or desktop.
+* This is intended for test purposes. It is basically a way of running distributed Spark apps on your laptop or desktop.
 
-* This will be useful to use CI/CD pipelines for your spark apps(A really difficult and hot topic)
+* This will be useful to use CI/CD pipelines for your spark apps(A complicated and hot topic)
 
 # Steps to connect and use a pyspark shell interactively
 
-* Follow the steps to run the docker-compose file. You can scale this down if needed to 1 worker. 
+* Follow the steps to run the docker-compose file. If needed, you can scale this down to 1 worker. 
 
 ```sh
 docker-compose up --scale spark-worker=1
@@ -183,6 +183,6 @@ pyspark
 
 # What's left to do?
 
-* Right now to run applications in deploy-mode cluster is necessary to specify arbitrary driver port.
+* Right now, to run applications in the deploy-mode cluster, an arbitrary driver port must be specified.
 
-* The spark submit entry in the start-spark.sh is unimplemented, the submit used in the demos can be triggered from any worker
+* The spark-submit entry in the start-spark.sh is unimplemented; the submit used in the demos can be triggered by any worker
