@@ -1,6 +1,6 @@
-# Spark Cluster with docker & docker-compose (2024 ver.)
+# Spark Cluster with docker & docker-compose ('24)
 
-# General
+## General
 
 A simple spark standalone cluster for your testing environment purposes. A *docker-compose up* away from your solution for your spark development environment.
 
@@ -13,24 +13,24 @@ spark-worker-1|9091
 spark-worker-2|9092
 demo-database|5432
 
-# Installation
+## Installation
 
 The following steps will make you run your spark cluster's containers.
 
-## Prerequisites
+### Prerequisites
 
 * Docker installed
 
 * Docker Compose  installed
 
-## Build the image
+### Build the image
 
 
 ```sh
 docker build -t cluster-apache-spark:3.0.2 .
 ```
 
-## Run the docker-compose
+### Run the docker-compose
 
 The final step to create your test cluster will be to run the compose file:
 
@@ -38,30 +38,30 @@ The final step to create your test cluster will be to run the compose file:
 docker-compose up -d
 ```
 
-## Validate your cluster
+### Validate your cluster
 
 Just validate your cluster by accessing the spark UI on each worker & master URL.
 
-### Spark Master
+#### Spark Master
 
 http://localhost:9090/
 
 ![alt text](articles/images/spark-master.png "Spark master UI")
 
-### Spark Worker 1
+#### Spark Worker 1
 
 http://localhost:9091/
 
 ![alt text](articles/images/spark-worker-1.png "Spark worker 1 UI")
 
-### Spark Worker 2
+#### Spark Worker 2
 
 http://localhost:9092/
 
 ![alt text](articles/images/spark-worker-2.png "Spark worker 2 UI")
 
 
-# Resource Allocation 
+## Resource Allocation 
 
 This cluster is shipped with three workers and one spark master. Each of these has a particular resource allocation(basically, RAM and CPU core allocation).
 
@@ -75,7 +75,7 @@ This cluster is shipped with three workers and one spark master. Each of these h
 
 * If you wish to modify this allocation, edit the env/spark-worker.sh file.
 
-# Binded Volumes
+## Bind Volumes
 
 To make the app running easier, I've shipped two volume mounts described in the following chart:
 
@@ -86,14 +86,14 @@ data|/opt/spark-data| Used to make available your app's data on all workers & ma
 
 This is a dummy DFS created from docker Volumes...(maybe not...)
 
-# Run Sample applications
+## Run Sample applications
 
 
-## NY Bus Stops Data [Pyspark]
+### NY Bus Stops Data [Pyspark]
 
 This program just loads archived data from [MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html) and applies basic filters using Spark SQL. The results are persisted into a PostgreSQL table.
 
-### Download the dataset
+#### Download the dataset
 
 Download the required dataset [MTA Bus Time](https://s3.amazonaws.com/nycbuspositions/2017/07/2017-07-14-bus-positions.csv.xz) by unzipping the data to **2017-07-14-bus-positions.csv** and place it under the **./data/** folder.
 
@@ -118,7 +118,7 @@ docker exec -it docker-spark-cluster_spark-master_1 bash
 
 ![alt text](./articles/images/pyspark-demo.png "Spark UI with pyspark program running")
 
-## MTA Bus Analytics[Scala]
+### MTA Bus Analytics[Scala]
 
 This program takes the archived data from [MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html) and makes some aggregations on it. The calculated results persist in Postgresql tables.
 
@@ -152,7 +152,7 @@ You will notice on the spark-ui a driver program and executor program running(In
 ![alt text](./articles/images/stats-app.png "Spark UI with scala program running")
 
 
-# Summary
+## Summary
 
 * We compiled the necessary docker image to run spark master and worker containers.
 
@@ -162,13 +162,13 @@ You will notice on the spark-ui a driver program and executor program running(In
 
 * We ran a distributed application at home(we just need enough CPU cores and RAM to do so).
 
-# Why a standalone cluster?
+## Why a standalone cluster?
 
 * This is intended for test purposes. It is basically a way of running distributed Spark apps on your laptop or desktop.
 
 * This will be useful to use CI/CD pipelines for your spark apps(A complicated and hot topic)
 
-# Steps to connect and use a pyspark shell interactively
+## Steps to connect and use a pyspark shell interactively
 
 * Follow the steps to run the docker-compose file. If needed, you can scale this down to 1 worker. 
 
@@ -181,7 +181,7 @@ pip3 install pyspark
 pyspark
 ```
 
-# What's left to do?
+## What's left to do?
 
 * Right now, to run applications in the deploy-mode cluster, an arbitrary driver port must be specified.
 
