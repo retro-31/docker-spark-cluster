@@ -27,9 +27,10 @@ def main():
       .withColumn("report_hour",date_format(col("timestamp"),"yyyy-MM-dd HH:00:00")) \
       .withColumn("report_date",date_format(col("timestamp"),"yyyy-MM-dd"))
   
-  # Filter invalid coordinates
+  # Filter invalid coordinates and save the results to public/mta_reports table.
   df.where("latitude <= 90 AND latitude >= -90 AND longitude <= 180 AND longitude >= -180") \
     .where("latitude != 0.000000 OR longitude !=  0.000000 ") \
+    .where("route_id == 'BX15'") \
     .write \
     .jdbc(url=url, table="mta_reports", mode='append', properties=properties)
       
