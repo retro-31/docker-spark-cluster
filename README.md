@@ -1,8 +1,8 @@
-# Spark Cluster with docker & docker-compose ('24)
+# Spark Cluster with docker & docker-compose ('25)
 
 ## General
 
-A simple spark standalone cluster for your testing environment purposes. A *docker-compose up* away from your solution for your spark development environment.
+A simple spark standalone cluster for your testing environment purposes. A *docker compose up* away from your solution for your spark development environment.
 
 The Docker compose will create the following containers:
 
@@ -32,10 +32,10 @@ docker build -t cluster-apache-spark:3.0.2 .
 
 ### Run the docker-compose
 
-The final step to create your test cluster will be to run the compose file:
+The final step to create your test cluster will be to run the compose file.  Ensure that `docker-compose-v2` is already installed in the system.  If not, install via `sudo apt install docker-compose-v2`.
 
 ```sh
-docker-compose up -d
+docker compose up -d
 ```
 
 ### Validate your cluster
@@ -173,7 +173,7 @@ You will notice on the spark-ui a driver program and executor program running(In
 * Follow the steps to run the docker-compose file. If needed, you can scale this down to 1 worker. 
 
 ```sh
-docker-compose up --scale spark-worker=1
+docker compose up --scale spark-worker=1
 docker exec -it docker-spark-cluster_spark-worker_1 bash
 apt update
 apt install python3-pip
