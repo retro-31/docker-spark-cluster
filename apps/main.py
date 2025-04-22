@@ -22,8 +22,7 @@ def main():
   file = "/opt/spark-data/2017-07-14-bus-positions.csv"
   sql,sc = init_spark()
 
-  df = sql.read.load(file,format = "csv", inferSchema="true", sep=",", header="true"
-      ) \
+  df = sql.read.load(file,format = "csv", inferSchema="true", sep=",", header="true") \
       .withColumn("report_hour",date_format(col("timestamp"),"yyyy-MM-dd HH:00:00")) \
       .withColumn("report_date",date_format(col("timestamp"),"yyyy-MM-dd"))
   
