@@ -24,7 +24,7 @@ The following steps will make you run your spark cluster's containers.
 * Docker Compose  installed
 
 ### Build the image
-
+This step will take some time as the spark package download is slow usually.
 
 ```sh
 docker build -t cluster-apache-spark:3.3.4 .
@@ -174,11 +174,8 @@ You will notice on the spark-ui a driver program and executor program running(In
 
 ```sh
 docker compose up --scale spark-worker=1
-docker exec -it docker-spark-cluster_spark-worker_1 bash
-apt update
-apt install python3-pip
-pip3 install pyspark
-pyspark
+docker exec -it spark-worker_a bash
+pyspark --master spark://spark-master:7077
 ```
 
 ## What's left to do?
