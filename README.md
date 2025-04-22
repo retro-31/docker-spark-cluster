@@ -105,7 +105,7 @@ The loaded table will contain the following structure:
 
 To submit the app, connect to one of the workers or the master and execute the following:
 ```sh
-docker exec -it docker-spark-cluster_spark-master_1 bash
+docker exec -it spark-master bash
 ```
 
 ```sh

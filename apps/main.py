@@ -31,7 +31,7 @@ def main():
     .where("latitude != 0.000000 OR longitude !=  0.000000 ") \
     .where("route_id == 'BX15'") \
     .write \
-    .jdbc(url=url, table="mta_reports", mode='append', properties=properties)
+    .jdbc(url=url, table="mta_data.mta_reports", mode='append', properties=properties)
       
 if __name__ == '__main__':
   main()

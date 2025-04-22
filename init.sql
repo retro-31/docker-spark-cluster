@@ -19,5 +19,7 @@ congestion_level varchar NULL,
 progress varchar NULL,
 block_assigned varchar NULL,
 dist_along_route varchar NULL,
-dist_from_stop varchar NULL);
+dist_from_stop varchar NULL,
+report_hour varchar NULL,
+report_date varchar NULL);
 
