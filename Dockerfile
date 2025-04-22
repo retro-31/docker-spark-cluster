@@ -7,8 +7,8 @@ RUN update-alternatives --install "/usr/bin/python" "python" "$(which python3)" 
 
 # Fix the value of PYTHONHASHSEED
 # Note: this is needed when you use Python 3.3 or greater
-ENV SPARK_VERSION=3.0.2 \
-HADOOP_VERSION=3.2 \
+ENV SPARK_VERSION=3.3.4 \
+HADOOP_VERSION=3 \
 SPARK_HOME=/opt/spark \
 PYTHONHASHSEED=1
 
@@ -39,6 +39,9 @@ touch $SPARK_MASTER_LOG && \
 touch $SPARK_WORKER_LOG && \
 ln -sf /dev/stdout $SPARK_MASTER_LOG && \
 ln -sf /dev/stdout $SPARK_WORKER_LOG
+
+# install pyspark
+RUN python -m pip install pyspark
 
 COPY start-spark.sh /
 
