@@ -9,8 +9,8 @@ The Docker compose will create the following containers:
 container|Exposed ports
 ---|---
 spark-master|9090 7077
-spark-worker-1|9091
-spark-worker-2|9092
+spark-worker-a|9091
+spark-worker-b|9092
 demo-database|5432
 
 ## Installation
@@ -118,7 +118,7 @@ docker exec -it spark-master bash
 
 ![alt text](./articles/images/pyspark-demo.png "Spark UI with pyspark program running")
 
-### MTA Bus Analytics[Scala]
+### MTA Bus Analytics [Scala]
 
 This program takes the archived data from [MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html) and makes some aggregations on it. The calculated results persist in Postgresql tables.
 
