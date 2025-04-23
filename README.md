@@ -7,6 +7,7 @@ A simple spark standalone cluster for your testing environment purposes. A *dock
 The Docker compose will create the following containers:
 
 container|Exposed ports
+
 ---|---
 spark-master|9090 7077
 spark-worker-a|9091
